@@ -1,13 +1,17 @@
-#!/usr/bin/bash
-
 # General Instructions
  mainmenu () {
-echo "Press i to add new contact"
-echo "Press v to view all contacts"
-echo "Press s to search for record"
-echo "Press e to delete all contacts"
-echo "Press d to delete one contact"
-echo "Press q to exit" 
+
+        echo "Press i to add new contact"
+        echo "Press v to view all contacts"
+        echo "Press s to search for record"
+        echo "Press e to delete all contacts"
+        echo "Press d to delete one contact"
+        echo "Press q to exit" 
+
+# Read enter letter choice from user to select opreation needed
+         read -p "Enter your choice: " userinput
+         echo $userinput
+
 
 }
 
@@ -16,20 +20,17 @@ mainmenu
 #ask user to go to main menu or exit 
 userchoice () {
         # check user choice to return to main menu or exit
-                read -p  "to return to main menu press m, or press q for exit: " userchoiceinput
-                if [ $userchoiceinput = m ]
+                read -p  "to return to main menu press m, or press q for exit: " userinput
+                if [ $userinput = m ]
                 then
                         mainmenu
-                elif [ $userchoiceinput = q  ]
+
+                # exit from script
+                elif [ $userinput = q  ]
                 then
                         exit
-
                 fi
 }
-
-
-# Read enter letter choice from user to select opreation needed
-read -p "Enter your choice: " userinput
 
 if [ $userinput = i ]
 then
@@ -43,7 +44,7 @@ then
                 read -r  -p "Enter your Email: " email
                 read -r  -p "Enter your Phone Number: " pnumber
 
-                 echo "$fname" "$lname" "$email" "$pnumber" >> database.txt
+                echo "$fname" "$lname" "$email" "$pnumber" >> database.txt
 
                 echo "Your contact has been saved..."
 
@@ -53,20 +54,24 @@ then
 
 addcontact
 
-
 #  shows all contacts with all info
 elif [ $userinput = v ]
 then
         cat database.txt
         if [ $userinput = m  ]
         then
-        mainmenu
+             mainmenu
         fi
 
 #  enter anything related to your search
 elif [ $userinput = s ]
 then
-        echo "you enteried s"
+        read -r -p "Enter your search keyword..." searchquery
+
+        queryresult =  grep -r $searchquery database.txt
+
+echo "$queryresult"
+
 
 
 # delete all records
